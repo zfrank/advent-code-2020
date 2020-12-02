@@ -13,10 +13,9 @@ def add2020Two(num_list: List[int]) -> Optional[Tuple[int, int]]:
 
 
 def add2020Three(num_list: List[int]) -> Optional[Tuple[int, int, int]]:
-    num_index = list(enumerate(num_list))
-    for i, num1 in num_index[:-2]:
-        for j, num2 in num_index[i+1:-1]:
-            for z, num3 in num_index[j+1:]:
+    for i, num1 in enumerate(num_list[:-2]):
+        for j, num2 in enumerate(num_list[i+1:-1]):
+            for _, num3 in enumerate(num_list[i+j+1:]):
                 if num1 + num2 + num3 == 2020:
                     return (num1, num2, num3)
     return None
