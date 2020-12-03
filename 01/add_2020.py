@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
 from typing import List, Optional, Tuple
+import argparse
+import textwrap
 import sys
 
 
@@ -21,21 +23,17 @@ def add2020Three(num_list: List[int]) -> Optional[Tuple[int, int, int]]:
     return None
 
 
-def fail():
-    print("You must specify one paramter: '2' or '3'.", file=sys.stderr)
-    sys.exit(1)
-
-
 def main():
-    if len(sys.argv) != 2:
-        fail()
-    param = sys.argv[1]
-    if param not in ['2', '3']:
-        fail()
+    aparser = argparse.ArgumentParser(
+        description=textwrap.dedent("""\
+        Read a list of numbers from stdin and find the combination of two or
+        three numbers add up to 2020 and multiply them together."""))
+    aparser.add_argument("mode", choices=["2", "3"])
+    args = aparser.parse_args()
     num_list = []
     for line in sys.stdin:
         num_list.append(int(line.strip()))
-    if param == '2':
+    if args.mode == '2':
         num1, num2 = add2020Two(num_list)
         print(num1, num2)
         print(num1 * num2)
