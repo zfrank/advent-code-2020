@@ -4,9 +4,12 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"path/filepath"
 	"strconv"
 	"strings"
 )
+
+var usage string = fmt.Sprintf("usage: %s [-h | --help] {2,3}\n", filepath.Base(os.Args[0]))
 
 func add2020Two(numList []int) ([]int, error) {
 	for i, num1 := range numList[0 : len(numList)-1] {
@@ -56,11 +59,30 @@ func readStdinOrDie() []int {
 	return numList
 }
 
+func printUsageAndDie() {
+	fmt.Fprintf(os.Stderr, usage)
+	os.Exit(1)
+}
+
+func printHelp() {
+	fmt.Fprintf(os.Stdout, usage)
+	fmt.Fprintln(os.Stdout, `Read a list of numbers from stdin and find the combination
+	of two or three numbers add up to 2020 and multiply them together.`)
+}
+
 func main() {
-	if len(os.Args) != 2 || (os.Args[1] != "2" && os.Args[1] != "3") {
-		fmt.Fprintln(os.Stderr, "You must specify one paramter: '2' or '3'.")
-		os.Exit(1)
+	if len(os.Args) == 2 {
+		if os.Args[1] == "-h" || os.Args[1] == "--help" {
+			printHelp()
+			os.Exit(0)
+		}
+		if os.Args[1] != "2" && os.Args[1] != "3" {
+			printUsageAndDie()
+		}
+	} else {
+		printUsageAndDie()
 	}
+
 	var func2020 func([]int) ([]int, error)
 	switch os.Args[1] {
 	case "2":
