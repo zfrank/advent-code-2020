@@ -15,7 +15,7 @@ RESULT=$((RESULT + $?))
 
 # run unit tests
 for DIR in $(test_dirs "$@"); do
-    go test -v $DIR
+    go test -v "./${DIR}"
     RESULT=$((RESULT + $?))
 done
 
