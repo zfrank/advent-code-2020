@@ -16,6 +16,10 @@ if [ -n "$DIFF_FILES_NEW" ]; then
     git add $DIFF_FILES_NEW
 fi
 
-set -e
+RESULT=0
 ${BASE_DIR}/test_python $(git diff --cached --name-only | grep "\.py$")
+RESULT=$((RESULT + $?))
 ${BASE_DIR}/test_go $(git diff --cached --name-only | grep "\.go$")
+RESULT=$((RESULT + $?))
+
+exit $RESULT
