@@ -10,11 +10,16 @@ test_dirs() {
 
 RESULT=0
 
-mypy --strict "$@"
-RESULT=$((RESULT + $?))
+for DIR in $(test_dirs "$@"); do
+    mypy --strict "$DIR"/*.py
+    RESULT=$((RESULT + $?))
+done
 
-PYLINTRC=$(git rev-parse --show-toplevel)/.pylintrc pylint -j0 "$@"
-RESULT=$((RESULT + $?))
+export PYLINTRC=$(git rev-parse --show-toplevel)/.pylintrc
+for DIR in $(test_dirs "$@"); do
+    pylint -j0 "$DIR"/*.py
+    RESULT=$((RESULT + $?))
+done
 
 # run unit tests
 for DIR in $(test_dirs "$@"); do
