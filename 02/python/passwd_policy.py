@@ -50,9 +50,9 @@ def main() -> None:
         description=textwrap.dedent("""\
         Read a list of policies and passwords from stdin and count how many
         passwords match their policies."""))
-    aparser.add_argument("policy", choices=["count", "position"])
+    aparser.add_argument("problem", choices=["one", "two"])
     args = aparser.parse_args()
-    if args.policy == "count":
+    if args.problem == "one":
         method_name = "match_count"
     else:
         method_name = "match_pos"

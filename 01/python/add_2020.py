@@ -28,12 +28,12 @@ def main() -> None:
         description=textwrap.dedent("""\
         Read a list of numbers from stdin and find the combination of two or
         three numbers add up to 2020 and multiply them together."""))
-    aparser.add_argument("mode", choices=["2", "3"])
+    aparser.add_argument("problem", choices=["one", "two"])
     args = aparser.parse_args()
     num_list = []
     for line in sys.stdin:
         num_list.append(int(line.strip()))
-    if args.mode == '2':
+    if args.problem == "one":
         num1, num2 = add2020Two(num_list)
         print(num1, num2)
         print(num1 * num2)

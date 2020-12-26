@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-var usage string = fmt.Sprintf("usage: %s [-h | --help] {2,3}\n", filepath.Base(os.Args[0]))
+var usage string = fmt.Sprintf("usage: %s [-h | --help] {one,two}\n", filepath.Base(os.Args[0]))
 
 func add2020Two(numList []int) ([]int, error) {
 	for i, num1 := range numList[0 : len(numList)-1] {
@@ -76,7 +76,7 @@ func main() {
 			printHelp()
 			os.Exit(0)
 		}
-		if os.Args[1] != "2" && os.Args[1] != "3" {
+		if os.Args[1] != "one" && os.Args[1] != "two" {
 			printUsageAndDie()
 		}
 	} else {
@@ -85,9 +85,9 @@ func main() {
 
 	var func2020 func([]int) ([]int, error)
 	switch os.Args[1] {
-	case "2":
+	case "one":
 		func2020 = add2020Two
-	case "3":
+	case "two":
 		func2020 = add2020Three
 	}
 	numList := readStdinOrDie()

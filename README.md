@@ -9,8 +9,9 @@ Go.
 To run one of the solutions, simply follow best practices for each language. All
 puzzles expect input from stdin. The input provided by Advent of Code is stored
 in a file named `input.txt` at the root of each puzzle directory.
-Each solution will expect a parameter. You can invoke each solution with
-`--help` to see the available options.
+Each solution will expect a parameter, whose value can be `one` or `two`. This
+will tell the code to solve the problem as the first or the second part of the
+puzzle for that day.
 
 To read the definition for each problem, please visit the Advent of Code
 website.
@@ -19,9 +20,9 @@ unit tests.
 
 ### Example: Python
 ```
-# run puzzle
+# run puzzle for part one of day one
 cd 01/python
-cat ../input.txt | add_2020.py -2
+cat ../input.txt | add_2020.py one
 
 # run test
 cd 01/python
@@ -33,10 +34,10 @@ python3 test_add_2020.py
 
 ### Example: Go
 ```
-# run puzzle
+# run puzzle for part two of day one
 cd 01/go
 go build add_2020.go
-cat ../input.txt | add_2020 -2
+cat ../input.txt | add_2020 two
 
 # run test
 cd 01/go
