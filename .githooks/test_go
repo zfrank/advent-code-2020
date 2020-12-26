@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -e
+[ $# -eq 0 ] && exit 0
+
+go vet "$@"
+
+# run unit tests
+for FILE in "$@"; do
+    dirname $FILE
+done | sort | uniq | xargs -n1 go test -v

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+BASE_DIR=$(dirname $0)
+DIFF_FILES_BEFORE=$(git diff --name-only)
+
+${BASE_DIR}/style_python $(git diff --cached --name-only | grep "\.py$")
+${BASE_DIR}/style_go $(git diff --cached --name-only | grep "\.go$")
+
+DIFF_FILES_AFTER=$(git diff --name-only)
+
+DIFF_FILES_NEW=$(comm -1 -3  <(echo "$DIFF_FILES_BEFORE") <(echo "$DIFF_FILES_AFTER"))
+
+if [ -n "$DIFF_FILES_NEW" ]; then
+    echo "Style changes automatically applied to these files:"
+    echo "$DIFF_FILES_NEW"
+    git add $DIFF_FILES_NEW
+fi
+
+set -e
+${BASE_DIR}/test_python $(git diff --cached --name-only | grep "\.py$")
+${BASE_DIR}/test_go $(git diff --cached --name-only | grep "\.go$")

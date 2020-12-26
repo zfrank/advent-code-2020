@@ -1,0 +1,5 @@
+#!/bin/bash
+
+[ $# -eq 0 ] && exit 0
+
+autopep8 --in-place -j0 --exit-code --global-config $(git rev-parse --show-toplevel)/.pycodestyle "$@"

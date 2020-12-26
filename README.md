@@ -46,3 +46,17 @@ go test
 cd 01/go
 go clean
 ```
+
+## Development
+To enforce correctness and code style, please enable the githook like this:
+```
+git config --local core.hooksPath .githooks/
+```
+
+This hook will enforce code style by automatically applying changes and it will
+run a few linters and the associated unit tests before storing your commit.
+
+Requirements:
+* pylint
+* autopep8
+* mypy

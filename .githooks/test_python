@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+[ $# -eq 0 ] && exit 0
+
+mypy --strict "$@"
+PYLINTRC=$(git rev-parse --show-toplevel)/.pylintrc pylint -j0 "$@"
+
+# run unit tests
+for FILE in "$@"; do
+    dirname $FILE
+done | sort | uniq | xargs -n1 python3 -m unittest discover -vv -s
