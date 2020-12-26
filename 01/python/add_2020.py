@@ -1,29 +1,29 @@
 #!/usr/bin/env python3
 
-from typing import List, Optional, Tuple
+from typing import List, Tuple
 import argparse
 import textwrap
 import sys
 
 
-def add2020Two(num_list: List[int]) -> Optional[Tuple[int, int]]:
+def add2020Two(num_list: List[int]) -> Tuple[int, int]:
     for i, num1 in enumerate(num_list[:-1]):
         for num2 in num_list[i+1:]:
             if num1 + num2 == 2020:
                 return (num1, num2)
-    return None
+    raise ValueError("No valid results in num_list")
 
 
-def add2020Three(num_list: List[int]) -> Optional[Tuple[int, int, int]]:
+def add2020Three(num_list: List[int]) -> Tuple[int, int, int]:
     for i, num1 in enumerate(num_list[:-2]):
         for j, num2 in enumerate(num_list[i+1:-1]):
             for _, num3 in enumerate(num_list[i+j+1:]):
                 if num1 + num2 + num3 == 2020:
                     return (num1, num2, num3)
-    return None
+    raise ValueError("No valid results in num_list")
 
 
-def main():
+def main() -> None:
     aparser = argparse.ArgumentParser(
         description=textwrap.dedent("""\
         Read a list of numbers from stdin and find the combination of two or

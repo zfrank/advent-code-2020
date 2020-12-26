@@ -2,7 +2,6 @@
 
 from typing import List, TextIO
 import argparse
-import io
 import sys
 
 SLOPES = [
@@ -14,7 +13,7 @@ SLOPES = [
 ]
 
 
-def count_trees(maptext: TextIO, skip_right: int, skip_down: int) -> int:
+def count_trees(maptext: List[str], skip_right: int, skip_down: int) -> int:
     width = 0
     trees = 0
     line_num = -1
@@ -29,22 +28,22 @@ def count_trees(maptext: TextIO, skip_right: int, skip_down: int) -> int:
     return trees
 
 
-def read_stdin() -> List[str]:
+def read_stdin(in_stream: TextIO) -> List[str]:
     text = []
-    for line in sys.stdin:
+    for line in in_stream:
         text.append(line)
     return text
 
 
-def main():
+def main() -> None:
     aparser = argparse.ArgumentParser()
     aparser.add_argument("problem", choices=["one", "two"])
     args = aparser.parse_args()
-    if args == "one":
-        print(count_trees(sys.stdin, 3, 1))
+    text = read_stdin(sys.stdin)
+    if args.problem == "one":
+        print(count_trees(text, 3, 1))
     else:
         total = 1
-        text = read_stdin()
         for right, down in SLOPES:
             total *= count_trees(text, right, down)
         print(total)

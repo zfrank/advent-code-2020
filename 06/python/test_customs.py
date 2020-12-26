@@ -5,8 +5,9 @@ import textwrap
 import customs
 import unittest
 
+
 class TestCustoms(unittest.TestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         self.text = io.StringIO(textwrap.dedent("""\
         abc
 
@@ -24,10 +25,10 @@ class TestCustoms(unittest.TestCase):
 
         b"""))
 
-    def test_example_one(self):
+    def test_example_one(self) -> None:
         self.assertEqual(11, customs.count_answers(customs.parser(self.text, "one")))
 
-    def test_example_two(self):
+    def test_example_two(self) -> None:
         self.assertEqual(6, customs.count_answers(customs.parser(self.text, "two")))
 
 

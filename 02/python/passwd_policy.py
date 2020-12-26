@@ -28,7 +28,7 @@ class Policy:
         for c in passwd:
             if c == self.char:
                 counter += 1
-        return counter >= self.min and counter <= self.max
+        return self.min <= counter <= self.max
 
     def match_pos(self, passwd: str) -> bool:
         # Interpret the numbers in policy as positions.
@@ -45,7 +45,7 @@ def parse_line(line: str) -> Tuple[Policy, str]:
     return Policy(polstr), passwd
 
 
-def main():
+def main() -> None:
     aparser = argparse.ArgumentParser(
         description=textwrap.dedent("""\
         Read a list of policies and passwords from stdin and count how many
@@ -61,7 +61,7 @@ def main():
     for line in sys.stdin:
         try:
             policy, passwd = parse_line(line.strip())
-        except Exception:
+        except ValueError:
             print(f"Could not parse this line: {line}", file=sys.stderr)
             sys.exit(1)
         func = getattr(policy, method_name)

@@ -3,7 +3,7 @@
 import argparse
 import sys
 import re
-from typing import List, TextIO
+from typing import Any, Dict, TextIO
 
 RANGES = {
     'byr': (1920, 2002),
@@ -17,10 +17,11 @@ EYE_COLOR = {"amb", "blu", "brn", "gry", "grn", "hzl", "oth"}
 HAIR_COLOR = "#[0-9a-f]{6}"
 HEIGHT_POST = {"cm", "in"}
 
+
 def validate_range(field: str, value: str) -> bool:
     num_value = int(value)
     lo, hi = RANGES[field]
-    return num_value >= lo and num_value <= hi
+    return lo <= num_value <= hi
 
 
 def validate_byr(value: str) -> bool:
@@ -33,10 +34,6 @@ def validate_iyr(value: str) -> bool:
 
 def validate_eyr(value: str) -> bool:
     return validate_range("eyr", value)
-
-
-def validate_byr(value: str) -> bool:
-    return validate_range("byr", value)
 
 
 def validate_hgt(value: str) -> bool:
@@ -63,11 +60,13 @@ def validate_pid(value: str) -> bool:
     return len(value) == 9
 
 
-class Passport():
+class Passport:
     valid_fields = {'byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid', 'cid'}
     validate_fields = {'byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid'}
-    def __init__(self):
-        self.fields = {}
+
+    def __init__(self) -> None:
+        self.fields: Dict[str, Any] = {}
+
     def parse_line(self, line: str) -> None:
         for token in line.split(' '):
             key, value = token.split(':')
@@ -118,7 +117,7 @@ def parser(in_stream: TextIO, problem: str) -> int:
     return count_valid
 
 
-def main():
+def main() -> None:
     aparser = argparse.ArgumentParser()
     aparser.add_argument("problem", choices=["one", "two"])
     args = aparser.parse_args()

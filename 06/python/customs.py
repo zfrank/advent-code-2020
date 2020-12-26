@@ -2,9 +2,10 @@
 
 import argparse
 import sys
-from collections import defaultdict
 from typing import Set, List, TextIO
 
+
+# pylint: disable=unused-argument
 def parse_line_one(group: Set[str], line: str, start: bool) -> Set[str]:
     for char in line:
         group.add(char)
@@ -28,7 +29,7 @@ def parser(in_stream: TextIO, problem: str) -> List[Set[str]]:
     else:
         parse_line = parse_line_two
     start = True
-    new_group = set()
+    new_group: Set[str] = set()
     for line in in_stream:
         line = line.strip()
         if not line:
@@ -45,11 +46,11 @@ def parser(in_stream: TextIO, problem: str) -> List[Set[str]]:
     return groups
 
 
-def count_answers(groups: List[Set[str]]):
+def count_answers(groups: List[Set[str]]) -> int:
     return sum([len(x) for x in groups])
 
 
-def main():
+def main() -> None:
     aparser = argparse.ArgumentParser()
     aparser.add_argument("problem", choices=["one", "two"])
     args = aparser.parse_args()

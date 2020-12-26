@@ -3,6 +3,7 @@
 import argparse
 import sys
 
+
 def binary_search(code: str, hi: int, lo: int, hi_code: str) -> int:
     for step in code:
         if step == hi_code:
@@ -17,14 +18,12 @@ def binary_search(code: str, hi: int, lo: int, hi_code: str) -> int:
 def parse_seat_id(seat_id: str) -> int:
     row_code = seat_id[:7]
     col_code = seat_id[7:]
-    max_row = 127
-    min_row = 0
     row = binary_search(row_code, 127, 0, "B")
     col = binary_search(col_code, 7, 0, "R")
     return (row * 8) + col
 
 
-def main():
+def main() -> None:
     aparser = argparse.ArgumentParser()
     aparser.add_argument("problem", choices=["one", "two"])
     args = aparser.parse_args()

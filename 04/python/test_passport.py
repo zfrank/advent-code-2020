@@ -5,8 +5,9 @@ import textwrap
 import passport
 import unittest
 
+
 class TestPasswordOne(unittest.TestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         self.text = io.StringIO(textwrap.dedent("""\
 		ecl:gry pid:860033327 eyr:2020 hcl:#fffffd
 		byr:1937 iyr:2017 cid:147 hgt:183cm
@@ -22,12 +23,12 @@ class TestPasswordOne(unittest.TestCase):
 		hcl:#cfa07d eyr:2025 pid:166559648
 		iyr:2011 ecl:brn hgt:59in"""))
 
-    def test_example(self):
+    def test_example(self) -> None:
         self.assertEqual(2, passport.parser(self.text, "one"))
 
 
 class TestPasswordTwo(unittest.TestCase):
-    def test_example_invalid(self):
+    def test_example_invalid(self) -> None:
         self.text = io.StringIO(textwrap.dedent("""\
         eyr:1972 cid:100
         hcl:#18171d ecl:amb hgt:170 pid:186cm iyr:2018 byr:1926
@@ -44,7 +45,7 @@ class TestPasswordTwo(unittest.TestCase):
         pid:3556412378 byr:2007"""))
         self.assertEqual(0, passport.parser(self.text, "two"))
 
-    def test_example_valid(self):
+    def test_example_valid(self) -> None:
         self.text = io.StringIO(textwrap.dedent("""\
         pid:087499704 hgt:74in ecl:grn iyr:2012 eyr:2030 byr:1980
         hcl:#623a2f
