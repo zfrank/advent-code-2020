@@ -5,20 +5,21 @@ import haversacks
 import textwrap
 import unittest
 
+
 class TestHaversacksParseLine(unittest.TestCase):
-    def test_no_other_bags(self):
+    def test_no_other_bags(self) -> None:
         node, neigh = haversacks.parse_line("dotted black bags contain no other bags.")
         self.assertEqual("dotted black", node)
         self.assertEqual([], neigh)
 
-    def test_match_two_bags(self):
+    def test_match_two_bags(self) -> None:
         node, neigh = haversacks.parse_line("light red bags contain 1 bright white bag, 2 muted yellow bags.")
         self.assertEqual("light red", node)
         self.assertEqual([(1, "bright white"), (2, "muted yellow")], neigh)
 
 
 class TestHaversacksOne(unittest.TestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         self.text = io.StringIO(textwrap.dedent("""\
         light red bags contain 1 bright white bag, 2 muted yellow bags.
         dark orange bags contain 3 bright white bags, 4 muted yellow bags.
@@ -30,21 +31,22 @@ class TestHaversacksOne(unittest.TestCase):
         faded blue bags contain no other bags.
         dotted black bags contain no other bags."""))
 
-    def test_build_graphs(self):
+    def test_build_graphs(self) -> None:
         graph, revgraph = haversacks.build_graphs(self.text)
         self.assertEqual(9, len(graph))
         self.assertEqual(7, len(revgraph))
 
-    def test_example_one(self):
+    def test_example_one(self) -> None:
         _, revgraph = haversacks.build_graphs(self.text)
         self.assertEqual(5, len(haversacks.bfs(revgraph, "shiny gold")))
 
-    def test_example_two(self):
+    def test_example_two(self) -> None:
         graph, _ = haversacks.build_graphs(self.text)
         self.assertEqual(32, haversacks.count_bags(graph, "shiny gold"))
 
+
 class TestHaversacksTwo(unittest.TestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         self.text = io.StringIO(textwrap.dedent("""\
 		shiny gold bags contain 2 dark red bags.
 		dark red bags contain 2 dark orange bags.
@@ -54,10 +56,9 @@ class TestHaversacksTwo(unittest.TestCase):
 		dark blue bags contain 2 dark violet bags.
 		dark violet bags contain no other bags."""))
 
-    def test_example_two_extra(self):
+    def test_example_two_extra(self) -> None:
         graph, _ = haversacks.build_graphs(self.text)
         self.assertEqual(126, haversacks.count_bags(graph, "shiny gold"))
-
 
 
 if __name__ == "__main__":

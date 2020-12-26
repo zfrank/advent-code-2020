@@ -10,6 +10,7 @@ Graph = Dict[str, List[Tuple[int, str]]]
 
 REGEX_NEIGH = r"(\d+) (\w+ \w+) bag"
 
+
 def parse_line(line: str) -> Tuple[str, List[Tuple[int, str]]]:
     """
     Parses one line of text with bag information. Examples:
@@ -25,7 +26,7 @@ def parse_line(line: str) -> Tuple[str, List[Tuple[int, str]]]:
     if neigh_raw == "no other bags.":
         return node, []
     matches = re.findall(REGEX_NEIGH, neigh_raw)
-    parsed_matches = [(int(x), y) for x,y in matches]
+    parsed_matches = [(int(x), y) for x, y in matches]
     return node, parsed_matches
 
 
@@ -66,7 +67,7 @@ def count_bags(graph: Graph, start: str) -> int:
     return total
 
 
-def main():
+def main() -> None:
     aparser = argparse.ArgumentParser()
     aparser.add_argument("problem", choices=["one", "two"])
     args = aparser.parse_args()
