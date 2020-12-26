@@ -143,7 +143,11 @@ disable=print-statement,
         missing-class-docstring,
         missing-function-docstring,
         invalid-name,
-        wrong-import-order
+        wrong-import-order,
+# Issue with python 3.9. Remove this when it's fixed:
+# https://github.com/PyCQA/pylint/pull/3890
+        unsubscriptable-object,
+        attribute-defined-outside-init
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option
